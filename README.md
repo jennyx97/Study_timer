@@ -32,3 +32,5 @@ A productivity application that helps track study/work sessions with:
 - tkinter (usually included with Python)
 
 Powered by Nineyxl
+
+![TimerScreenshot](https://github.com/user-attachments/assets/ce26992f-d48d-48a0-b3e7-e81129842b46)
