@@ -176,6 +176,12 @@ class StudyTimer:
             else:
                 self.accumulated_seconds = 0
 
+            # Add these lines to update totals on pause
+            self.data["total_seconds"] += self.accumulated_seconds
+            self.data["today_seconds"] += self.accumulated_seconds
+
+            self.update_last_session_data()
+
     def reset_timer(self):
         if not self.running and self.accumulated_seconds > 0:
             # Ensure sessions is a list before appending
@@ -194,6 +200,7 @@ class StudyTimer:
             self.accumulated_seconds = 0
             self.start_button.config(state=tk.NORMAL)
             self.pause_button.config(state=tk.DISABLED)
+            self.update_last_session_data()  # <-- Add this
 
     def update_timer(self):
         elapsed = self.accumulated_seconds
@@ -257,12 +264,19 @@ class StudyTimer:
             elapsed = (datetime.now() - self.start_time).total_seconds()
             self.data["total_seconds"] += elapsed
             self.data["today_seconds"] += elapsed
+            self.accumulated_seconds = elapsed
         elif hasattr(self, 'paused_time') and self.paused_time:
             self.data["total_seconds"] += self.accumulated_seconds
             self.data["today_seconds"] += self.accumulated_seconds
-        
+
+        self.update_last_session_data()  # <-- Add this
         self.save_data()
         self.root.destroy()
+
+    def update_last_session_data(self):
+        self.data["last_session"]["start_time"] = self.start_time.strftime(DATE_FORMAT) if hasattr(self, 'start_time') and self.start_time else None
+        self.data["last_session"]["paused_time"] = self.paused_time.strftime(DATE_FORMAT) if hasattr(self, 'paused_time') and self.paused_time else None
+        self.data["last_session"]["accumulated_seconds"] = self.accumulated_seconds
 
 if __name__ == "__main__":
     root = tk.Tk()
